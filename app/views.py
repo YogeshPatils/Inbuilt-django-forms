@@ -27,9 +27,13 @@ def logInView(request):
                 return redirect('home')
     return render(request,'signin.html',{'form':fm})
 
-@login_required('/signin/')
+@login_required(login_url='/signin/')
 def homeView(request):
     return render(request,'home.html')
+
+def logOutView(request):
+    logout(request)
+    return redirect('signin')
 
 
     
