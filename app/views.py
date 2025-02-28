@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import (authenticate,login,logout)
 from django.contrib.auth.decorators import login_required
 from .forms import CustomUserForm
+from django.contrib import messages
 
 
 def signUpview(request):
@@ -12,6 +13,7 @@ def signUpview(request):
         fm=CustomUserForm(data=request.POST)
         if fm.is_valid():
             fm.save()
+            messages.success(request,'user created Sucessfully')
             return redirect('signin')
     return render(request,'signup.html',{'form':fm})
 
@@ -24,7 +26,9 @@ def logInView(request):
             user=authenticate(**cleaned_data)
             if user is not None:
                 login(request,user)
+                messages.add_message(request,messages.SUCCESS,'User logged in succesfully')
                 return redirect('home')
+
     return render(request,'signin.html',{'form':fm})
 
 @login_required(login_url='/signin/')
@@ -33,6 +37,8 @@ def homeView(request):
 
 def logOutView(request):
     logout(request)
+    messages.add_message(request,messages.SUCCESS,'User logged out succesfully')
+
     return redirect('signin')
 
 
