@@ -9,8 +9,19 @@
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 </head>
 <body>
+    {% block msg %}
+
+    {% if messages %}
+    {% for message in messages %}
+    <p class="alert alert-{{message.tags}}">{{message}}</p>
+        
+    {% endfor %}
+    {% endif %}
+    {% endblock msg %}
+    
     {% block body %}
     {% endblock body %}
+
     <script src="{% static 'js/bootstrap.min.bundle.js' %}"></script>
 </body>
 </html>

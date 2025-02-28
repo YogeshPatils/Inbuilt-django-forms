@@ -1,4 +1,9 @@
-welcomee
-{{user.user}}
+{% extends 'base.html' %}
+
+{% block body %}
+welcome
+{{user.username}}
+
 
 <a href="{% url 'logout' %}">Log out</a>
+{% endblock body%}
