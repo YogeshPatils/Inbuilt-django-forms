@@ -3,13 +3,13 @@ from django.contrib.auth.forms import (AuthenticationForm,UserCreationForm)
 from django.contrib.auth.models import User
 from django.contrib.auth import (authenticate,login,logout)
 from django.contrib.auth.decorators import login_required
-# Create your views here.
+from .forms import CustomUserForm
 
 
 def signUpview(request):
-    fm=UserCreationForm()
+    fm=CustomUserForm()
     if request.method=='POST':
-        fm=UserCreationForm(data=request.POST)
+        fm=CustomUserForm(data=request.POST)
         if fm.is_valid():
             fm.save()
             return redirect('signin')
