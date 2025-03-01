@@ -28,6 +28,8 @@ def logInView(request):
                 login(request,user)
                 messages.add_message(request,messages.SUCCESS,'User logged in succesfully')
                 return redirect('home')
+            
+        messages.add_message(request,messages.ERROR,'Invalid Credentials')
 
     return render(request,'signin.html',{'form':fm})
 
