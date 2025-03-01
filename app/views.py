@@ -5,12 +5,13 @@ from django.contrib.auth import (authenticate,login,logout)
 from django.contrib.auth.decorators import login_required
 from .forms import CustomUserForm
 from django.contrib import messages
+from .models import CustomUserModel
 
 
 def signUpview(request):
     fm=CustomUserForm()
-    if request.method=='POST':
-        fm=CustomUserForm(data=request.POST)
+    if request.method=='POST' and request.FILES:
+        fm=CustomUserForm(request.POST,request.FILES)
         if fm.is_valid():
             fm.save()
             messages.success(request,'user created Sucessfully')
@@ -35,7 +36,8 @@ def logInView(request):
 
 @login_required(login_url='/signin/')
 def homeView(request):
-    return render(request,'home.html')
+    obj=CustomUserModel.objects.get(username=request.user.username)
+    return render(request,'home.html',{'user':obj})
 
 def logOutView(request):
     logout(request)

@@ -4,6 +4,6 @@
 welcome
 {{user.username}}
 
-
+<img src="{{user.profile_picture.url}}" alt="" srcset="">
 <a href="{% url 'logout' %}">Log out</a>
 {% endblock body%}
